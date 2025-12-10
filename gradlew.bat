@@ -35,6 +35,16 @@ for %%i in ("%APP_HOME%") do set APP_HOME=%%~fi
 @rem Add default JVM options here. You can also use JAVA_OPTS and GRADLE_OPTS to pass JVM options to this script.
 set DEFAULT_JVM_OPTS="-Xmx64m" "-Xms64m"
 
+@rem When Gradle is already installed, use it to avoid wrapper downloads in
+@rem network-restricted environments (set USE_WRAPPER=1 to force wrapper usage).
+if not defined USE_WRAPPER (
+    where gradle >NUL 2>NUL
+    if %ERRORLEVEL% EQU 0 (
+        gradle %*
+        exit /b %ERRORLEVEL%
+    )
+)
+
 @rem Find java.exe
 if defined JAVA_HOME goto findJavaFromJavaHome
 
