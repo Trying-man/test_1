@@ -46,6 +46,12 @@ APP_BASE_NAME=`basename "$0"`
 # Add default JVM options here. You can also use JAVA_OPTS and GRADLE_OPTS to pass JVM options to this script.
 DEFAULT_JVM_OPTS='"-Xmx64m" "-Xms64m"'
 
+# When an installed Gradle is available, prefer it to avoid downloading
+# distributions in restricted network environments (set USE_WRAPPER=1 to force wrapper).
+if [ -z "$USE_WRAPPER" ] && command -v gradle >/dev/null 2>&1 ; then
+    exec gradle "$@"
+fi
+
 # Use the maximum available, or set MAX_FD != -1 to use that value.
 MAX_FD="maximum"
 
